@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Identity;
+using ReactTrainingArcAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ReactTrainingArcAPI.Controllers
 {
@@ -10,18 +12,16 @@ namespace ReactTrainingArcAPI.Controllers
 [ApiController]
 public class UserController : ControllerBase
 {
-    [HttpGet]
+        private readonly DataContext _context;
+        public UserController(DataContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
     public async Task<ActionResult<List<User>>> GetUsers() 
     {
-        return new List<User> 
-        {
-                new User
-               {
-                   UID=1,
-                   Username= "admin",
-                   Password = "admin"
-                }
-        };
+        return Ok(await _context.Users.ToListAsync());
     } 
 }
 
