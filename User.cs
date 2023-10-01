@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+
+[Keyless]
 public class User{
 public int UID{get;set;}
 public string? Username{get;set;}
